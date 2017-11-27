@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    run: frontend
+  name: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: frontend
+  template:
+    metadata:
+      creationTimestamp: null
+      namespace: frontend  
+      labels:
+        run: frontend
+    spec:
+      containers:
+      - image: vulnerables/web-dvwa:1.9
+        name: frontend

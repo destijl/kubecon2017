@@ -1,0 +1,40 @@
+apiVersion: v1
+data:
+  payments-api-key: ZmNkYTM4YTQ2Mzc2NGRjNzUwNjk3YjU1MDQzMjM3MDhmM2YwNmM5ZQ==
+kind: Secret
+metadata:
+  creationTimestamp: null
+  name: payments-api-key
+  namespace: payments
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    run: payments
+  name: payments
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: payments
+  template:
+    metadata:
+      creationTimestamp: null
+      namespace: payments  
+      labels:
+        run: payments
+    spec:
+      containers:
+      - image: nginx
+        name: payments
+        volumeMounts:
+        - name: payments-api-key
+          mountPath: "/etc/payments-api-key"
+          readOnly: true
+      volumes:
+        - name: payments-api-key
+          secret:
+            secretName: payments-api-key
+
