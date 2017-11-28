@@ -80,33 +80,66 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: frontend
+  name: signup
   labels:
-    app: guestbook
+    app: signup
     tier: frontend
 spec:
-  # type: LoadBalancer
   ports:
   - port: 80
   selector:
-    app: guestbook
+    app: signup
     tier: frontend
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: frontend
+  name: signup
 spec:
   replicas: 3
   template:
     metadata:
       labels:
-        app: guestbook
+        app: signup
         tier: frontend
     spec:
       containers:
-      - name: php-redis
+      - name: signup-php
         image: gcr.io/cjcullen-gke-dev/signup-form:v1
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        ports:
+        - containerPort: 80
+        imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: payment
+  labels:
+    app: payment
+spec:
+  ports:
+  - port: 80
+  selector:
+    app: payment
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: payment
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: payment
+    spec:
+      containers:
+      - name: payment-php
+        image: gcr.io/cjcullen-gke-dev/payment-processor:v1
         resources:
           requests:
             cpu: 100m
