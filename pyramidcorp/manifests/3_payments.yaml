@@ -31,6 +31,16 @@ spec:
         ports:
         - containerPort: 80
         imagePullPolicy: Always
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - signup
+            topologyKey: kubernetes.io/hostname
 ---
 apiVersion: v1
 data:
