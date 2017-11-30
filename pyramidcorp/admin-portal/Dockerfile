@@ -16,7 +16,6 @@ FROM php:5-apache
 
 RUN apt-get update
 RUN apt-get install -y php-pear
-RUN apt-get install sudo
 RUN pear channel-discover pear.nrk.io
 RUN pear install nrk/Predis
 
@@ -26,14 +25,5 @@ RUN pear install nrk/Predis
 # them again.
 RUN sed -i 's#ErrorLog /proc/self/fd/2#ErrorLog "|$/bin/cat 1>\&2"#' /etc/apache2/apache2.conf
 RUN sed -i 's#CustomLog /proc/self/fd/1 combined#CustomLog "|/bin/cat" combined#' /etc/apache2/apache2.conf
-#RUN sed -i 's/:80>/:8079>/' /etc/apache2/sites-enabled/000-default.conf
-#RUN sed -i 's/Listen 80$/Listen 8079/' /etc/apache2/ports.conf
-RUN usermod -aG sudo www-data
-RUN chsh -s /bin/bash www-data
-RUN echo "www-data ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-#RUN chmod 777 /var/run/apache2/
-#RUN chmod 777 /var/lock/apache2/
 
-ADD signup.php /var/www/html/signup.php
-ADD controllers.js /var/www/html/controllers.js
-ADD index.html /var/www/html/index.html
+ADD admin-portal.php /var/www/html/admin-portal.php

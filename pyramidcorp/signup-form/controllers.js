@@ -7,10 +7,10 @@ function RedisController() {}
 
 RedisController.prototype.onRedis = function() {
     var email = this.scope_.email;
-    var cardno = this.scope_.cardno;
+    var accountno = this.scope_.accountno;
     this.scope_.email = "";
-    this.scope_.cardno = "";
-    this.http_.get("signup.php?cmd=signup&email=" + email + "&cardno=" + cardno)
+    this.scope_.accountno = "";
+    this.http_.get("signup.php?cmd=signup&email=" + email + "&accountno=" + accountno)
             .success(angular.bind(this, function(data) {
                 this.scope_.redisResponse = "Successfully signed up!";
                 this.scope_.count = data.count;
