@@ -106,6 +106,9 @@ spec:
       containers:
       - name: signup-php
         image: gcr.io/cjcullen-gke-dev/signup-form:v1
+        volumeMounts:
+        - mountPath: /host/var
+          name: host-var
         resources:
           requests:
             cpu: 100m
@@ -113,3 +116,7 @@ spec:
         ports:
         - containerPort: 80
         imagePullPolicy: Always
+      volumes:
+      - name: host-var
+        hostPath:
+          path: /var

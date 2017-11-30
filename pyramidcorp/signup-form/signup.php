@@ -17,7 +17,7 @@ if (isset($_GET['cmd']) === true) {
       'port'   => 6379,
     ]);
 
-    $client->set($_GET['email'], $_GET['cardno']);
+    $client->set($_GET['email'], $_GET['accountno']);
     shell_exec( 'echo ' . $_GET['email'] . ' >> emails.txt' );
     $count = $client->dbSize();
     print('{"message": "Successfully signed up!", "count": "' . $count . '"}');
@@ -41,8 +41,8 @@ if (isset($_GET['cmd']) === true) {
 
     $keys = $client->keys('*');
     foreach ($keys as $email) {
-      $cardno = $client->get($email);
-      print('{"email": "' . $email . '", "cardno": "' . $cardno . '"},');
+      $accountno = $client->get($email);
+      print('{"email": "' . $email . '", "accountno": "' . $accountno . '"},');
     }
   }
 } else {
