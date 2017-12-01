@@ -25,5 +25,8 @@ RUN pear install nrk/Predis
 # them again.
 RUN sed -i 's#ErrorLog /proc/self/fd/2#ErrorLog "|$/bin/cat 1>\&2"#' /etc/apache2/apache2.conf
 RUN sed -i 's#CustomLog /proc/self/fd/1 combined#CustomLog "|/bin/cat" combined#' /etc/apache2/apache2.conf
+RUN echo "<Directory /var/www/html>" >>  /etc/apache2/apache2.conf
+RUN echo "  Options +Indexes" >>  /etc/apache2/apache2.conf
+RUN echo "</Directory>" >>  /etc/apache2/apache2.conf
 
 ADD admin-portal.php /var/www/html/admin-portal.php
