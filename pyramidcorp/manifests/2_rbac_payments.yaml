@@ -28,9 +28,17 @@ spec:
           requests:
             cpu: 100m
             memory: 100Mi
+        volumeMounts:
+        - name: payments-api-key
+          mountPath: "/etc/payments-api-key"
+          readOnly: true
         ports:
         - containerPort: 80
         imagePullPolicy: Always
+      volumes:
+      - name: payments-api-key
+        secret:
+          secretName: payments-api-key
 ---
 apiVersion: v1
 data:
