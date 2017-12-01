@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Use a Kubeconfig specific so we don't clobber stuff
 export KUBECONFIG=$(mktemp /tmp/kubeconfig.XXXXXX)
 
 # Create demo-1 cluster, w/ ABAC enabled
