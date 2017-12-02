@@ -48,6 +48,8 @@ spec:
                 operator: In
                 values:
                 - signup
+            namespaces:
+            - signup
             topologyKey: kubernetes.io/hostname
 ---
 apiVersion: v1

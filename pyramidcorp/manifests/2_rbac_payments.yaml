@@ -39,6 +39,18 @@ spec:
       - name: payments-api-key
         secret:
           secretName: payments-api-key
+      affinity:
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - signup
+            namespaces:
+            - signup
+            topologyKey: kubernetes.io/hostname
 ---
 apiVersion: v1
 data:
