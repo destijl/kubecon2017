@@ -1,5 +1,12 @@
 #!/bin/bash
 
+set -o errexit
+set -o nounset
+set -o pipefail
+
+: ${PROJECT:="gcastle-gke-dev"}
+: ${ZONE:="us-west1-b"}
+
 export KUBECONFIG=$(mktemp /tmp/kubeconfig.XXXXXX)
 
 # Point at demo-3 cluster
